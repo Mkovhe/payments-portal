@@ -10,17 +10,18 @@ jobs:
           name: Install Dependencies
           command: npm install
       - run:
-          name: Build
-          command: npm run build
+          name: Build Project
+          command: npm run build --if-present
       - run:
-          name: SonarQube Scan
+          name: SonarCloud Scan
           command: |
             npm install -g sonarqube-scanner
             sonar-scanner \
-              -Dsonar.projectKey=payments-portal \
+              -Dsonar.projectKey=mkovhe_payments-portal \
+              -Dsonar.organization=mkovhe \
               -Dsonar.sources=src \
               -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.login=${SONAR_TOKEN}
+              -Dsonar.login=$SONAR_TOKEN
 
 workflows:
   build-and-scan:
